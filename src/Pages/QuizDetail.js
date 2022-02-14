@@ -5,7 +5,7 @@ import useHttp from "../hooks/use-http";
 
 import {reducer, getTimeString, TotalTime} from '../lib/Quiz';
 import { useDispatch } from "react-redux";
-import { addResult } from "../store/QuizResultSlice";
+import { addResult, clearResult } from "../store/QuizResultSlice";
 
 var quizTimer = false;
 const initialState = {
@@ -68,8 +68,9 @@ const QuizDetaul = () => {
   };
 
   useEffect(() => {
+    dispatchResult(clearResult())
     sendRequest();
-  }, [sendRequest]);
+  }, [sendRequest, dispatchResult]);
 
   useEffect(() => {
     if (!isFinished && isStarted) {
@@ -139,7 +140,7 @@ const QuizDetaul = () => {
               {isLastQuestion ? "Finish quiz" : "Next question"}
             </button>
 
-            {showFeedback && (wasCorrect?<span className="w3-green w3-round w3-padding">Correct Asnwer!</span>:<span className="w3-red w3-padding">Incorrect Answer!</span>)}
+            {showFeedback && (wasCorrect?<span className="w3-green w3-round w3-padding">Correct Asnwer!</span>:<span className="w3-red w3-padding w3-round w3-padding">Incorrect Answer!</span>)}
             
             <h4>
               {correctCount} correct out of {questions.length}

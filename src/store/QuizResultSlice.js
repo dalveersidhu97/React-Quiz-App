@@ -6,9 +6,12 @@ const quizResultSlice = createSlice({
    reducers: {
        addResult: (state, action) => {
         state.results.push(action.payload);
+       },
+       clearResult: (state, action) => {
+           state.results = [];
        }
    }
 });
 
-export const {addResult} = quizResultSlice.actions;
+export const {addResult, clearResult} = quizResultSlice.actions;
 export default quizResultSlice.reducer;
