@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { Provider } from "react-redux";
+import { Navigate, Route, Routes } from "react-router-dom";
+import Layout from "./Layout/Layout";
+import Home from "./Pages/Home";
+import NotFound from "./Pages/NotFound";
+import QuizDetaul from "./Pages/QuizDetail";
+import QuizResult from "./Pages/QuizResult";
+import store from "./store/store";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Provider store={store}>
+      <Layout>
+        <Routes>
+          <Route path=""  element={<Navigate replace to="/home" />}></Route>
+          <Route path="/home" element={<Home/>}></Route>
+          <Route path="/categories/:catId" element={<QuizDetaul/>}></Route>
+          <Route path="/quiz/results" element={<QuizResult/>}></Route>
+          <Route path="*" element={<NotFound/>}></Route>
+        </Routes>
+      </Layout>
+      </Provider>
     </div>
   );
 }
